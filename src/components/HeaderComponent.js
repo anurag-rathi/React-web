@@ -9,6 +9,7 @@ class Header extends Component {
         this.state = {
             isNavOpen : false
         }
+        this.toggleNav = this.toggleNav.bind(this);
     }
     toggleNav(){
         this.setState({
@@ -20,7 +21,7 @@ class Header extends Component {
             <React.Fragment>
                 <Navbar dark expand="md">
                     <div className="container">
-                        <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
+                        <NavbarBrand className="mr-auto" href="/"><img src='assets/images/logo.png' height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand>
                         <NavbarToggler onClick={this.toggleNav} />
                         <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav navbar>
