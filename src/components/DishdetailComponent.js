@@ -26,8 +26,7 @@ import { Link } from 'react-router-dom'
 
     handleSubmit(values){
         this.toggleModal();
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
     }
 
     render() {
@@ -52,15 +51,15 @@ import { Link } from 'react-router-dom'
                             </Row>
                             <Row className="form-group">
                                 <Col>
-                                   <Label htmlFor='name'>Your Name</Label>
-                                   <Control.text model='.name' name='name' className='form-control' 
+                                   <Label htmlFor='author'>Your Name</Label>
+                                   <Control.text model='.author' name='author' className='form-control' 
                                     validators = {{
                                         required, minLength: minLength(3) , maxLength: maxLength(15)
                                     }}
                                    />
                                    <Errors
                                         className="text-danger"
-                                        model=".name"
+                                        model=".author"
                                         show="touched"
                                         messages={{
                                             required: 'Required',
@@ -89,7 +88,7 @@ import { Link } from 'react-router-dom'
     }
  }
 
-   function RenderComments({comments}){
+   function RenderComments({comments, addComment , dishId}){
        
         if(comments!=null){
             return(
@@ -105,7 +104,7 @@ import { Link } from 'react-router-dom'
                             );
                         })}
                     </ul>
-                    <CommentForm />
+                    <CommentForm addComment={addComment} dishId={dishId} />
                 </div>
             );
         }else{
@@ -145,7 +144,10 @@ import { Link } from 'react-router-dom'
                     </div>
                     <div className="row">
                       <RenderDish dish= {props.dish} />
-                      <RenderComments comments = {props.comments} />
+                      <RenderComments comments = {props.comments} 
+                         addComment = {props.addComment}
+                         dishId = {props.dish.id}
+                      />
                     </div>
                 </div>
             );
