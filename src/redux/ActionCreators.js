@@ -19,8 +19,25 @@ export const fetchDishes = () => (dispatch) => {
     dispatch(dishesLoading(true));
     
     return fetch(baseUrl + 'dishes')
+        .then(response => {
+            // If response is ok i.e. status=200
+            if(response.ok){
+                return response;
+            }
+            //if response is not good i.e. server generate error
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
         .then(response => response.json())
         .then(dishes => dispatch(addDishes(dishes)))
+        .catch(error => dispatch(dishesFailed(error.message)));
 }
 
 export const dishesLoading = () => ({
@@ -41,8 +58,26 @@ export const addDishes = (dishes) => ({
 export const fetchComments = () => (dispatch) => {
     
     return fetch(baseUrl + 'comments')
+        .then(response => {
+            // If response is ok i.e. status=200
+            if(response.ok){
+                return response;
+            }
+            //if response is not good i.e. server generate error
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
         .then(response => response.json())
         .then(comments => dispatch(addComments(comments)))
+        .catch(error => dispatch(commentsFailed(error.message)));
+
 }
 
 export const commentsFailed = (errmess) => ({
@@ -60,9 +95,27 @@ export const fetchPromos = () => (dispatch) => {
     dispatch(promosLoading(true));
     
     return fetch(baseUrl + 'promotions')
+        .then(response => {
+            // If response is ok i.e. status=200
+            if(response.ok){
+                return response;
+            }
+            //if response is not good i.e. server generate error
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
         .then(response => response.json())
         .then(promotions => dispatch(addPromos(promotions)))
+        .catch(error => dispatch(promosFailed(error.message)));
 }
+
 
 export const promosLoading = () => ({
     type: ActionTypes.PROMOS_LOADING
