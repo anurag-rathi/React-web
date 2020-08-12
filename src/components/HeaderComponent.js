@@ -92,7 +92,7 @@ class Header extends Component {
                                 <Label check>
                                     <Input type="checkbox" name="remember"
                                     innerRef={(input) => this.remember = input} 
-                                    innerRef = {(input) => this.remember = input} />
+                                     />
                                     Remember me
                                 </Label>
                             </FormGroup>
